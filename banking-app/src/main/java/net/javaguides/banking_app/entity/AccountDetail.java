@@ -24,4 +24,6 @@ public class AccountDetail {
 
     @Column(name = "accountHolderName")
     private String name;
+
+    private double accountBalance;
 }
