@@ -2,11 +2,15 @@ package net.javaguides.ems_backend.controller;
 
 import lombok.AllArgsConstructor;
 import net.javaguides.ems_backend.dto.EmployeeDto;
+import net.javaguides.ems_backend.exception.EmployeeNotFoundException;
+import net.javaguides.ems_backend.exception.ErrorDetail;
 import net.javaguides.ems_backend.service.EmployeeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -50,4 +54,16 @@ public class EmployeeController {
         employeeService.deleteEmployee(id);
         return ResponseEntity.ok("Deleted SuccessFully");
     }
+
+    // custom exception handler by adding error details
+    /*@ExceptionHandler(EmployeeNotFoundException.class)
+    public ResponseEntity<ErrorDetail> handleEmployeeNotFoundException(EmployeeNotFoundException ex, WebRequest req){
+        ErrorDetail er = new ErrorDetail(
+                LocalDateTime.now(),
+                ex.getMessage(),
+                req.getDescription(false),
+                "EMPLOYEE_NOT_FOUND"
+        );
+        return new ResponseEntity<>(er,HttpStatus.NOT_FOUND);
+    }*/
 }

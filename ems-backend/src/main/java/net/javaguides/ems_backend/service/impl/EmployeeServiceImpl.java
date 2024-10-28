@@ -3,6 +3,7 @@ package net.javaguides.ems_backend.service.impl;
 import lombok.AllArgsConstructor;
 import net.javaguides.ems_backend.dto.EmployeeDto;
 import net.javaguides.ems_backend.entity.Employee;
+import net.javaguides.ems_backend.exception.EmailAlreadyExistsException;
 import net.javaguides.ems_backend.exception.EmployeeNotFoundException;
 import net.javaguides.ems_backend.mapper.EmployeeMapper;
 import net.javaguides.ems_backend.repository.EmployeeRepository;
@@ -21,6 +22,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public EmployeeDto createEmployee(EmployeeDto employeeDto) {
 
+        Optional<Employee> emp = employeeRepository.findEmployeeByEmail(employeeDto.getEmail());
+        if(emp.isPresent()){
+            throw new EmailAlreadyExistsException("Employee email already exists");
+        }
         Employee employee = EmployeeMapper.mapToEmployee(employeeDto);
         Employee savedEmployee = employeeRepository.save(employee);
         return EmployeeMapper.mapToEmployeeDto(savedEmployee);
