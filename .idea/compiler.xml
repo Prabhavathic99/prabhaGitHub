@@ -8,6 +8,8 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="worker-service" />
+        <module name="api-gateway" />
+        <module name="config-server" />
         <module name="department-service" />
         <module name="service-registry" />
       </profile>
@@ -15,6 +17,8 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="api-gateway" options="-parameters" />
+      <module name="config-server" options="-parameters" />
       <module name="department-service" options="-parameters" />
       <module name="service-registry" options="-parameters" />
       <module name="worker-service" options="-parameters" />
