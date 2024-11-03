@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import net.javaguides.worker_service.dto.APIResponseDto;
 import net.javaguides.worker_service.dto.WorkerDto;
 import net.javaguides.worker_service.service.WorkerService;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -1,19 +1,28 @@
 package net.javaguides.department_service.controller;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.NoArgsConstructor;
 import net.javaguides.department_service.dto.DepartmentDto;
 import net.javaguides.department_service.service.DepartmentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/departments")
-@AllArgsConstructor
 public class DepartmentController {
 
     private DepartmentService departmentService;
+
+    @Autowired
+    public DepartmentController(DepartmentService departmentService) {
+        this.departmentService = departmentService;
+    }
+
+    /*public DepartmentController(DepartmentService departmentService) {
+        this.departmentService = departmentService;
+    }*/
 
     // save department
     @PostMapping("new")
@@ -23,7 +32,7 @@ public class DepartmentController {
     }
 
     // get department detail
-    @GetMapping("{code}")
+    @GetMapping("/{code}")
     public ResponseEntity<DepartmentDto> getDepartmentByCode(@PathVariable String code){
         DepartmentDto departmentDto = departmentService.getDepartmentByCode(code);
         return new ResponseEntity<>(departmentDto,HttpStatus.OK);
