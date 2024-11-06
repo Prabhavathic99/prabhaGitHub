@@ -17,5 +17,6 @@ public class WorkerDto {
     private String email;
     private double salary;
     private String departmentCode;
+    private String organisationCode;
 
 }

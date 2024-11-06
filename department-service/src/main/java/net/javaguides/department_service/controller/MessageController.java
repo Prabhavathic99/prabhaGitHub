@@ -9,11 +9,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class MessageController {
 
-    @Value("${spring.config.message}")
+    @Value("${message}")
     private String message;
 
     @GetMapping("get/message")
     private String getMessage(){
+        System.out.println("texxxxxxt:" + message);
         return message;
     }
 }

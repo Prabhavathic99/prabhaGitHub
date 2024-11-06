@@ -3,6 +3,7 @@ package net.javaguides.worker_service.service.impl;
 import lombok.AllArgsConstructor;
 import net.javaguides.worker_service.dto.APIResponseDto;
 import net.javaguides.worker_service.dto.DepartmentDto;
+import net.javaguides.worker_service.dto.OrganisationDto;
 import net.javaguides.worker_service.dto.WorkerDto;
 import net.javaguides.worker_service.entity.Worker;
 import net.javaguides.worker_service.repository.WorkerRepository;
@@ -33,7 +34,8 @@ public class WorkerServiceImpl implements WorkerService {
                 workerDto.getLastName(),
                 workerDto.getEmail(),
                 workerDto.getSalary(),
-                workerDto.getDepartmentCode()
+                workerDto.getDepartmentCode(),
+                workerDto.getOrganisationCode()
         );
         Worker savedWorker = workerRepository.save(worker);
         WorkerDto savedWokerDto = new WorkerDto(
@@ -42,7 +44,8 @@ public class WorkerServiceImpl implements WorkerService {
                 savedWorker.getLastName(),
                 savedWorker.getEmail(),
                 savedWorker.getSalary(),
-                savedWorker.getDepartmentCode()
+                savedWorker.getDepartmentCode(),
+                savedWorker.getOrganisationCode()
         );
         return savedWokerDto;
     }
@@ -64,18 +67,28 @@ public class WorkerServiceImpl implements WorkerService {
 
         DepartmentDto newDepartmentDto = apiClient.getDepartmentByCode(worker.getDepartmentCode());
 
+        OrganisationDto organisationDto = webClient.get()
+                .uri("http://localhost:8083/api/organisations/" + worker.getOrganisationCode())
+                .retrieve()
+                .bodyToMono(OrganisationDto.class)
+                .block();
+
+        //OrganisationDto organisationDto = apiClient.getOrganisationByCode(worker.getOrganisationCode());
+
         WorkerDto workerDto = new WorkerDto(
                 worker.getId(),
                 worker.getFirstName(),
                 worker.getLastName(),
                 worker.getEmail(),
                 worker.getSalary(),
-                worker.getDepartmentCode()
+                worker.getDepartmentCode(),
+                worker.getOrganisationCode()
         );
 
         APIResponseDto response = new APIResponseDto();
         response.setWorkerDto(workerDto);
         response.setDepartmentDto(newDepartmentDto);
+        response.setOrganisationDto(organisationDto);
 
         return response;
     }

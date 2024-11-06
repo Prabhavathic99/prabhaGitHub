@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>net.javaguides</groupId>
-	<artifactId>department-service</artifactId>
+	<artifactId>organisation-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>department-service</name>
-	<description>Demo project for Springboot Department microservice</description>
+	<name>organisation-service</name>
+	<description>Demo project for Springboot for organisation microservice</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -65,6 +65,10 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-config</artifactId>
 		</dependency>
 		<dependency>
@@ -84,7 +88,7 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-	
+
 	<build>
 		<plugins>
 			<plugin>
